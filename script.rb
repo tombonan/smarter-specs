@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-require_relative 'perforce'
+require_relative 'executor'
 
-Perforce.execute
-
+Executor.main
