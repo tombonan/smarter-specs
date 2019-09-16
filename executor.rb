@@ -1,10 +1,12 @@
 module Executor
   require_relative 'files'
-  def self.main
+  def self.main(opt)
     $changed_files = Files::Perforce.get_changelist_files
-    all_files = get_all_affected_files
-    
-    specs_to_run = Files::Specs.get_specs(all_files)
+    if opt = 'extended'
+      specs_to_run = extended
+    else
+      specs_to_run = lite
+    end
 
     if specs_to_run.empty?
       puts 'No specs need to be run'
@@ -38,5 +40,14 @@ module Executor
     end
     dependents
   end
-  
+
+  def self.extended
+    all_files = get_all_affected_files
+    Files::Specs.get_specs(all_files)
+  end
+
+  def self.lite
+    Files::Specs.get_specs($changed_files)
+  end
+
 end
