@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'optparse'
+require 'specss'
 require 'specss/executor'
 
 ARGV << '-l' if ARGV.empty? # Default to lite if no arguments are passed

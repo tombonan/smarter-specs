@@ -1,2 +1,3 @@
-output.html
 .DS_STORE
+Gemfile.lock
+/builds

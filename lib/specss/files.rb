@@ -2,8 +2,8 @@ module Files
   require 'json'
   
   module Perforce
-    #
-    ## Returns all ruby files in changelist as an array of files without extension
+    ##
+    # Returns all ruby files in changelist as an array of files without extension
     def self.get_changelist_files
       changed_files = []
       p4_status = %x|p4 status &|
@@ -21,8 +21,8 @@ module Files
   end
 
   module Dependencies
-    #
-    ## Takes in a file and returns all files that are dependents as an array of files without extension
+    ##
+    # Takes in a file and returns all files that are dependents as an array of files without extension
     def self.get_dependencies(file)
       dependents = []
       # Get file name without extension and convert to camel case
@@ -31,7 +31,7 @@ module Files
 
       # Get rubrowser output and parse for the relation data
       output = %x|rubrowser &|
-      data = output.match(/var\s+data\s+=\s+(.*?);/m)[1]
+      data = output.match(/var\s+data\s+=\s+(.*?);/m)[1].split('</script>')[0]
       data_hash = JSON.parse(data)
       relations = data_hash['relations']
 
@@ -48,8 +48,8 @@ module Files
   end
 
   module Specs
-    #
-    ## Returns all specs to run as an array of file paths relative to root
+    ##
+    # Returns all specs to run as an array of file paths relative to root
     def self.get_specs(changed_files)
       specs_to_run = []
       specs = Dir.glob('spec/**/*').select{ |e| File.file? e }

@@ -19,8 +19,8 @@ Gem::Specification.new do |s|
   s.bindir        = 'bin'
   s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths = ['lib']
-  
-  s.add_runtime_dependency 'rubrowser-local2.7.1'
+
+  s.add_runtime_dependency 'rubrowser', '~> 2.0.0'
   
   s.post_install_message = "Welcome to the Spec Party"
 end

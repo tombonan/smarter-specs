@@ -12,3 +12,15 @@ gem install /path/to/rubrowser-2.7.1.gem
 ### Rails Projects
 Currently this works for all of our Rails projects. The Rubrowser gem won't work with Ruby 2.2.5 in Bargen so it will run a 'lite' version that only checks
 modified files and not all dependencies.
+
+### Installation
+First clone this repo into your local files
+```
+git clone git@github.com:tombonan/smarter-specs.git
+```
+then navigate to your project and install the gem locally
+```
+gem install /path/to/repo/builds/specs-0.1.0.gem
+```
+
+If your projects use different Ruby versions, then each one will require this step
