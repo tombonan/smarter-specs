@@ -1,6 +1,5 @@
 module Files
   require 'json'
-  require 'pp'
   
   module Perforce
     #
@@ -59,7 +58,18 @@ module Files
       specs.each do |s|
         spec_name = File.basename(s, ".*")
         spec_name.slice! '_spec' if spec_name.include? '_spec'
+        next if spec_name.include? 'shared_examples'
         specs_to_run.push(s) if changed_files.include? spec_name
+      end
+      specs_to_run
+    end
+
+    def self.chop_file_paths(specs)
+      specs_to_run = []
+      
+      specs.each do |s|
+        spec_name = File.basename(s)
+        specs_to_run.push(spec_name)
       end
       specs_to_run
     end

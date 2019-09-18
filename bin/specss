@@ -1,0 +1,46 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'specss/executor'
+
+ARGV << '-l' if ARGV.empty? # Default to lite if no arguments are passed
+
+Options = Struct.new(:name)
+
+##
+# Parse arguments that are passed when running specs
+class Parser
+  def self.parse(options)
+    args = Options.new("world")
+
+    opt_parser = OptionParser.new do |opts|
+      opts.banner = "Usage: specss [option]"
+
+      opts.on("-e", "--extended", "Run specs of modified files and dependents") do |n|
+        Executor.main('extended')
+      end
+
+      opts.on("-l", "--lite", "Run specs of modified files only") do |n|
+        Executor.main('lite')
+      end
+
+      opts.on("-t", "--test", "Runs a separate function for testing") do |n|
+        Executor.test
+      end
+
+      opts.on("-v", "--version", "Smarter Specs Version") do |n|
+        puts "Specss #{Specss::VERSION}"
+      end
+
+      opts.on("-h", "--help", "Prints this help") do
+        puts opts
+        exit
+      end
+    end
+
+    opt_parser.parse!(options)
+    return args
+  end
+end
+
+options = Parser.parse(ARGV)
