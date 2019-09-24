@@ -64,6 +64,8 @@ module Files
       specs_to_run
     end
 
+    ##
+    # Returns array of specs to run with the absolute path chopped off
     def self.chop_file_paths(specs)
       specs_to_run = []
       

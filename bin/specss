@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+!/usr/bin/env ruby
 
 require 'optparse'
 require 'specss'
@@ -23,10 +23,6 @@ class Parser
 
       opts.on("-l", "--lite", "Run specs of modified files only") do |n|
         Executor.main('lite')
-      end
-
-      opts.on("-t", "--test", "Runs a separate function for testing") do |n|
-        Executor.test
       end
 
       opts.on("-v", "--version", "Smarter Specs Version") do |n|

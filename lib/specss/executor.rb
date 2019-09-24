@@ -3,8 +3,8 @@ require 'specss/files'
 module Executor
   class << self
 
-    ## Takes in option from parse and executes main functions
-    #
+    ##
+    # Takes in option from parse and executes main functions
     def main(opt)
       $changed_files = Files::Perforce.get_changelist_files
 
