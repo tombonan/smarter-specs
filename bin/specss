@@ -1,4 +1,4 @@
-!/usr/bin/env ruby
+#!/usr/bin/env ruby
 
 require 'optparse'
 require 'specss'
@@ -12,7 +12,6 @@ Options = Struct.new(:name)
 # Parse arguments that are passed when running specs
 class Parser
   def self.parse(options)
-    args = Options.new("world")
 
     opt_parser = OptionParser.new do |opts|
       opts.banner = "Usage: specss [option]"
@@ -36,8 +35,12 @@ class Parser
     end
 
     opt_parser.parse!(options)
-    return args
   end
 end
 
-options = Parser.parse(ARGV)
+begin
+  Parser.parse(ARGV)
+rescue OptionParser::InvalidOption
+  puts "Warning: Invalid option"
+  exec("specss -h")
+end

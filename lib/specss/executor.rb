@@ -21,7 +21,7 @@ module Executor
       else
         spec_names = Files::Specs.chop_file_paths(specs_to_run)
         puts 'Running specs: ' + spec_names.join(" ")
-        exec "rspec " + specs_to_run.join(" ")
+        exec "bundle exec rspec " + specs_to_run.join(" ")
       end
     end
 
