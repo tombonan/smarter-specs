@@ -8,6 +8,12 @@ module Executor
     def main(opt)
       $changed_files = Files::Perforce.get_changelist_files
 
+      if $changed_files.include? 'p4: command not found'
+        puts 'Please install perforce command line client: '\
+             'https://www.perforce.com/perforce/r14.2/manuals/p4guide/chapter.install.html'
+        return false
+      end
+
       # Pass in options from ARGV on whether to run lite or extended
       case opt
       when 'extended'
