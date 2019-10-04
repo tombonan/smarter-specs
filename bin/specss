@@ -4,7 +4,7 @@ require 'optparse'
 require 'specss'
 require 'specss/executor'
 
-ARGV << '-l' if ARGV.empty? # Default to lite if no arguments are passed
+ARGV << '-c' if ARGV.empty? # Default to lite if no arguments are passed
 
 Options = Struct.new(:name)
 
@@ -16,12 +16,16 @@ class Parser
     opt_parser = OptionParser.new do |opts|
       opts.banner = "Usage: specss [option]"
 
-      opts.on("-e", "--extended", "Run specs of modified files and dependents") do |n|
+      opts.on("-c", "--condensed", "Run specs of files opened for edit only") do |n|
+        Executor.main('condensed')
+      end
+
+      opts.on("-e", "--extended", "Run specs of files opened for edit and dependents") do |n|
         Executor.main('extended')
       end
 
-      opts.on("-l", "--lite", "Run specs of modified files only") do |n|
-        Executor.main('lite')
+      opts.on("-l", "--list", "Prints a list of specs for files opened for edit") do |n|
+        Executor.main('list')
       end
 
       opts.on("-v", "--version", "Smarter Specs Version") do |n|

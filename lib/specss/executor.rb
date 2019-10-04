@@ -12,17 +12,13 @@ module Executor
       case opt
       when 'extended'
         specs_to_run = extended
+      when 'list'
+        list_specs
       else
-        specs_to_run = lite
+        specs_to_run = condensed
       end
 
-      if specs_to_run.empty?
-        puts 'No specs need to be run'
-      else
-        spec_names = Files::Specs.chop_file_paths(specs_to_run)
-        puts 'Running specs: ' + spec_names.join(" ")
-        exec "bundle exec rspec " + specs_to_run.join(" ")
-      end
+      run_specs(specs_to_run) unless opt == 'list'
     end
 
     ##
@@ -55,9 +51,25 @@ module Executor
       Files::Specs.get_specs(all_files)
     end
 
-    def lite
+    def condensed
       Files::Specs.get_specs($changed_files)
     end
+
+    ##
+    # Prints a list of specs for files opened for edit
+    def list_specs
+      specs = condensed
+      puts specs.join("\n")
+    end
+
+    def run_specs(specs_to_run)
+      if specs_to_run.empty?
+        puts 'No specs need to be run'
+      else
+        spec_names = Files::Specs.chop_file_paths(specs_to_run)
+        puts 'Running specs: ' + spec_names.join(" ")
+        exec "bundle exec rspec " + specs_to_run.join(" ")
+      end
+    end
   end
-  
 end

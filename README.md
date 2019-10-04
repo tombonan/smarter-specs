@@ -17,8 +17,8 @@ Navigate to the root of your rails app or ruby project and simply run:
 specss
 ```
 
-By default, it only runs the 'lite' version that executes specs based on your p4 status. To run specs on all changed files and 
-all dependents of those changed files, run:
+By default, it only runs the 'condensed' version that executes specs based on files opened for edit from your p4 status. To run specs on all 
+changed files and all dependents of those changed files, run:
 
 ```
 specss -e
@@ -29,8 +29,9 @@ For other information, print the help after running the executable:
 ```
 [~]$ specss -h
 Usage: specss [option]
-    -e, --extended                   Run specs of modified files and dependents
-    -l, --lite                       Run specs of modified files only
+    -c, --condensed                  Run specs of files opened for edit only
+    -e, --extended                   Run specs of files opened for edit and dependents
+    -l, --list                       Prints a list of specs for files opened for edit
     -v, --version                    Smarter Specs Version
     -h, --help                       Prints this help
 ```
@@ -38,7 +39,7 @@ Usage: specss [option]
 ### Development
 ```
 git clone git@github.com:tombonan/smarter-specs.git && cd smarter-specs
-rake console # auto loads lib files into an irb session
+rake console
 ```
 
 ### Gathering Dependents
