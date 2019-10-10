@@ -7,6 +7,13 @@ module Files
     def self.get_changelist_files
       changed_files = []
       p4_status = %x|p4 status &|
+
+      if p4_status.empty?
+        puts 'Please install perforce command line client: '\
+             'https://www.perforce.com/perforce/r14.2/manuals/p4guide/chapter.install.html'
+        return false
+      end
+
       p4_array = p4_status.split("\n")
 
       # Add all ruby files ready to be submitted to changed file array
