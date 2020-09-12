@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'specss/version'
@@ -23,4 +25,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'rubrowser', '~> 2.0.0'
 
   s.add_development_dependency 'pry', '~> 0.12.0'
+  s.add_development_dependency 'rake', '~> 13.0'
+  s.add_development_dependency 'rubocop', '~> 0.80'
 end
