@@ -5,9 +5,10 @@ RSpec::Core::RakeTask.new(:spec)
 
 task :default => :spec
 
-# Auto load gem into ruby console
+desc 'Open an pry session preloaded with specss'
 task :console do
-  exec "irb -r specss -I ./lib"
+  require 'pry'
+  exec 'pry -I lib -r specss'
+rescue LoadError => _e
+  exec 'irb -I lib -r specss'
 end
-
-

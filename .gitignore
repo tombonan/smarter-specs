@@ -3,3 +3,4 @@ Gemfile.lock
 /builds
 *.gem
 .ruby-version
+.projectile

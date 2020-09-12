@@ -21,6 +21,6 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_runtime_dependency 'rubrowser', '~> 2.0.0'
-  
-  s.post_install_message = "Welcome to the Spec Party"
+
+  s.add_development_dependency 'pry', '~> 0.12.0'
 end
