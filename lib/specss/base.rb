@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'specss/git/lib'
+require 'specss/p4/lib'
+
 module Specss
   ##
   # Base class for intializing and configuring a project
@@ -11,10 +14,7 @@ module Specss
     end
 
     def initialize(options = {})
-      @working_directory = options[:working_directory] ?
-                             Specss::WorkingDirectory.new(options[:working_directory]) : nil
-
-      # Boolean indicator of whether the project is a git repository or not
+      @working_directory = Specss::WorkingDirectory.new(options[:working_directory])
       @git_repo = git_dir?(options[:working_directory])
     end
 
@@ -32,23 +32,31 @@ module Specss
       @working_directory
     end
 
+    # returns reference to the git repository directory
+    #  @specss.dir.path
+    def repo
+      @repository
+    end
+
+    def status
+      @status ||= lib.status
+    end
+
     ##
     # This is a convenience method for accessing the class that wraps all the
     # actual system calls.
     def lib
-      @lib ||= Specss::Lib.new(self)
+      @lib ||= git_repo? ? Specss::Git::Lib.new(self) : Specss::P4::Lib.new(self)
     end
 
     private
 
     ##
-    # Attempts to create a Specss::Path with possible locations of the .git directory.
-    # If any of those initializations raise, the path doesn't exist.
+    # Returns true if the working dir or the parent of the working dir has a .git
+    # directory. False otherwise
     def git_dir?(working_dir)
-      return true unless Specss::Path.new(File.join(working_dir, '.git')).nil?
-      return true unless Specss::Path.new(File.join(File.expand_path('..', working_dir), '.git')).nil?
-      false
-    rescue ArgumentError
+      return true if File.exist?(File.join(working_dir, '.git'))
+      return true if File.exist?(File.join(File.expand_path('..', working_dir), '.git'))
       false
     end
   end
