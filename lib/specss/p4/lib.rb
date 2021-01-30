@@ -6,7 +6,7 @@ module Specss
   module P4
     class ExecuteError < StandardError; end
     ##
-    # Class that wraps all system calls for git commands
+    # Class that wraps all system calls for Perforce commands
     class Lib
       attr_accessor :base
 
@@ -99,10 +99,10 @@ module Specss
         return output
       end
 
-      def run_command(git_cmd, &block)
-        return IO.popen(git_cmd, &block) if block_given?
+      def run_command(p4_cmd, &block)
+        return IO.popen(p4_cmd, &block) if block_given?
 
-        `#{git_cmd}`.chomp.lines.join
+        `#{p4_cmd}`.chomp.lines.join
       end
     end
   end

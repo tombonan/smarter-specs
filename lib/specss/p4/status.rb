@@ -1,7 +1,7 @@
 module Specss
   module P4
     #
-    # A class for tracking git status
+    # A class for tracking Perforce status
     class Status
       include Enumerable
 
